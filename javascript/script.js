@@ -16,3 +16,16 @@ function GameBoard() {
 const board = GameBoard();
 
 board.show_board();
+
+// A player has name and a token
+function Player(name, token) {
+  const playRound = () => {
+    const playerCase = prompt(`${name}, it's your turn, choose a case:`);
+    return playerCase;
+  };
+  return { name, token, playRound };
+}
+
+const player1 = Player("John");
+
+console.log(player1.playRound());
