@@ -10,7 +10,9 @@ function GameBoard() {
   };
 
   const getGameBoard = () => gameBoard;
-  return { getGameBoard, show_board };
+  const setGameBoard = (key, token) => (gameBoard[key] = token);
+
+  return { getGameBoard, setGameBoard, show_board };
 }
 
 const board = GameBoard();
@@ -26,6 +28,7 @@ function Player(name, token) {
   return { name, token, playRound };
 }
 
-const player1 = Player("John");
+const player1 = Player("John", "X");
 
-console.log(player1.playRound());
+board.setGameBoard(player1.playRound(), player1.token);
+board.show_board();
