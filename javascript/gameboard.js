@@ -4,6 +4,9 @@ export function GameBoard() {
   const checkRows = (elem1, elem2, elem3) => {
     return elem1 === elem2 ? elem2 === elem3 : false;
   };
+  function isNumber(value) {
+    return !isNaN(parseFloat(value)) && isFinite(value);
+  }
   // Return true when one row has three cases that have the same value
   const checkVictory = () => {
     const array = [
@@ -34,7 +37,14 @@ export function GameBoard() {
   };
 
   const getGameBoard = () => gameBoard;
-  const setGameBoard = (key, token) => (gameBoard[key] = token);
+  const setGameBoard = (key, token) => {
+    if (isNumber(gameBoard[key])) {
+      gameBoard[key] = token;
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return { getGameBoard, setGameBoard, show_board, checkVictory };
 }

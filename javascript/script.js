@@ -6,10 +6,14 @@ function screenController() {
   const board = GameBoard();
   const player1 = Player("John", "X");
   const player2 = Player("Sophia", "O");
+  const victoryElement = document.querySelector(".victory");
+  const turnElement = document.querySelector(".turn");
+  const content = document.querySelector(".content");
+  let currentPlayer = player1;
 
   function createBoardOnScreen() {
     const theBoard = board.getGameBoard();
-
+    turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
     for (const key in theBoard) {
       const caseButton = document.createElement("button");
       const value = theBoard[key];
@@ -22,28 +26,30 @@ function screenController() {
   createBoardOnScreen();
 
   function updateBoard(buttonID, token) {
-    board.setGameBoard(buttonID, token);
-    const buttonToUpdate = document.getElementById(buttonID);
-    buttonToUpdate.textContent = token;
+    if (board.setGameBoard(buttonID, token)) {
+      const buttonToUpdate = document.getElementById(buttonID);
+      buttonToUpdate.textContent = token;
+    } else {
+      const error = document.createElement("div");
+      error.textContent = "You can't play this square";
+      console.log("CLiked");
+      content.insertBefore(error, victoryElement);
+    }
   }
 
-  let currentPlayer = player1;
   const caseButtons = document.querySelectorAll(".case");
 
-  // while (!board.checkVictory()) {
-  //   //board.setGameBoard(currentPlayer.playRound(), currentPlayer.token);
-  //   updateBoard();
-  //   // Change the currentPlayer for each round
-  //   currentPlayer === player1
-  //     ? (currentPlayer = player2)
-  //     : (currentPlayer = player1);
-  // }
-
   caseButtons.forEach((button) => {
-    button.addEventListener(
-      "click",
-      updateBoard(button.id, currentPlayer.token)
-    );
+    button.addEventListener("click", () => {
+      updateBoard(button.id, currentPlayer.token);
+      if (board.checkVictory()) {
+        victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`;
+      }
+      currentPlayer === player1
+        ? (currentPlayer = player2)
+        : (currentPlayer = player1);
+      turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
+    });
   });
 }
 
