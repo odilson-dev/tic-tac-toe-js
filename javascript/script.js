@@ -53,10 +53,12 @@ function screenController() {
     const caseButtons = document.querySelectorAll(".case");
     caseButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        updateBoard(button.id, currentPlayer.token);
         if (board.checkVictory()) {
-          victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`;
         } else {
+          updateBoard(button.id, currentPlayer.token);
+          board.checkVictory()
+            ? (victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`)
+            : (victoryElement.innerHTML = "");
           currentPlayer === player1
             ? (currentPlayer = player2)
             : (currentPlayer = player1);
