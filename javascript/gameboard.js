@@ -1,11 +1,14 @@
 export function GameBoard() {
-  const gameBoard = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
+  let gameBoard = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
   // Check whether 3 cases have the same value
   const checkRows = (elem1, elem2, elem3) => {
     return elem1 === elem2 ? elem2 === elem3 : false;
   };
   function isNumber(value) {
     return !isNaN(parseFloat(value)) && isFinite(value);
+  }
+  function resetBoard() {
+    gameBoard = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
   }
   // Return true when one row has three cases that have the same value
   const checkVictory = () => {
@@ -46,5 +49,5 @@ export function GameBoard() {
     }
   };
 
-  return { getGameBoard, setGameBoard, show_board, checkVictory };
+  return { getGameBoard, setGameBoard, show_board, checkVictory, resetBoard };
 }

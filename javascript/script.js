@@ -10,6 +10,7 @@ function screenController() {
   const turnElement = document.querySelector(".turn");
   const content = document.querySelector(".content");
   const error = document.querySelector(".error");
+  const restart = document.querySelector(".btn-restart");
   let currentPlayer = player1;
 
   function createBoardOnScreen() {
@@ -24,7 +25,14 @@ function screenController() {
       boardDiv.appendChild(caseButton);
     }
   }
-  createBoardOnScreen();
+
+  function restartGame() {
+    board.resetBoard();
+    boardDiv.innerHTML = "";
+    victoryElement.innerHTML = "";
+    createBoardOnScreen();
+    addEventListenerOnCases();
+  }
 
   function updateBoard(buttonID, token) {
     if (board.setGameBoard(buttonID, token)) {
@@ -37,21 +45,29 @@ function screenController() {
     }
   }
 
-  const caseButtons = document.querySelectorAll(".case");
-
-  caseButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      if (board.checkVictory()) {
-        victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`;
-      } else {
-        updateBoard(button.id, currentPlayer.token);
-        currentPlayer === player1
-          ? (currentPlayer = player2)
-          : (currentPlayer = player1);
-        turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
-      }
-    });
+  restart.addEventListener("click", () => {
+    restartGame();
   });
+
+  function addEventListenerOnCases() {
+    const caseButtons = document.querySelectorAll(".case");
+    caseButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        updateBoard(button.id, currentPlayer.token);
+        if (board.checkVictory()) {
+          victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`;
+        } else {
+          currentPlayer === player1
+            ? (currentPlayer = player2)
+            : (currentPlayer = player1);
+          turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
+        }
+      });
+    });
+  }
+
+  createBoardOnScreen();
+  addEventListenerOnCases();
 }
 
 screenController();
