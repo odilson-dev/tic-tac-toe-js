@@ -12,6 +12,31 @@
       <h1 class="turn"></h1>
       <div class="board"></div>
       <div class="error"></div>
+      <dialog id="favDialog">
+        <form>
+          <label for="player-1">Player 1:</label>
+          <input
+            required
+            type="text"
+            name="player-1"
+            id="player-1"
+            placeholder="John Doe"
+          /><br />
+          <label for="player-2">Player 2:</label>
+          <input
+            required
+            type="text"
+            name="player-2"
+            id="player-2"
+            placeholder="Jackie"
+          /><br />
+
+          <div>
+            <button value="cancel" formmethod="dialog">Cancel</button>
+            <button id="confirmBtn" value="default">Confirm</button>
+          </div>
+        </form>
+      </dialog>
       <button id="showDialog">Show the dialog</button>
       <p class="victory"></p>
       <button class="btn-restart">Restart</button>

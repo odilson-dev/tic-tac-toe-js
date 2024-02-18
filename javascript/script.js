@@ -3,6 +3,7 @@ import { Player } from "./player.js";
 
 function screenController() {
   const boardDiv = document.querySelector(".board");
+  const showButton = document.getElementById("showDialog");
   const board = GameBoard();
   const player1 = Player("John", "X");
   const player2 = Player("Sophia", "O");
@@ -12,6 +13,11 @@ function screenController() {
   const error = document.querySelector(".error");
   const restart = document.querySelector(".btn-restart");
   let currentPlayer = player1;
+
+  // "Show the dialog" button opens the <dialog> modally
+  showButton.addEventListener("click", () => {
+    favDialog.showModal();
+  });
 
   function createBoardOnScreen() {
     const theBoard = board.getGameBoard();
