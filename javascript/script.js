@@ -9,6 +9,7 @@ function screenController() {
   const victoryElement = document.querySelector(".victory");
   const turnElement = document.querySelector(".turn");
   const content = document.querySelector(".content");
+  const error = document.querySelector(".error");
   let currentPlayer = player1;
 
   function createBoardOnScreen() {
@@ -27,12 +28,11 @@ function screenController() {
 
   function updateBoard(buttonID, token) {
     if (board.setGameBoard(buttonID, token)) {
+      error.textContent = "";
       const buttonToUpdate = document.getElementById(buttonID);
       buttonToUpdate.textContent = token;
     } else {
-      const error = document.createElement("div");
       error.textContent = "You can't play this square";
-      console.log("CLiked");
       content.insertBefore(error, victoryElement);
     }
   }
@@ -41,14 +41,15 @@ function screenController() {
 
   caseButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      updateBoard(button.id, currentPlayer.token);
       if (board.checkVictory()) {
         victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`;
+      } else {
+        updateBoard(button.id, currentPlayer.token);
+        currentPlayer === player1
+          ? (currentPlayer = player2)
+          : (currentPlayer = player1);
+        turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
       }
-      currentPlayer === player1
-        ? (currentPlayer = player2)
-        : (currentPlayer = player1);
-      turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
     });
   });
 }
