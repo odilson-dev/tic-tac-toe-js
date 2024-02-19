@@ -5,7 +5,7 @@ function screenController() {
   const boardDiv = document.querySelector(".board");
   const showButton = document.getElementById("showDialog");
   const board = GameBoard();
-
+  const restartDialog = document.getElementById("restart");
   const victoryElement = document.querySelector(".victory");
   const turnElement = document.querySelector(".turn");
   const content = document.querySelector(".content");
@@ -51,8 +51,8 @@ function screenController() {
     board.resetBoard();
     boardDiv.innerHTML = "";
     victoryElement.innerHTML = "";
+    restartDialog.close();
     createBoardOnScreen();
-    dd.GameBoard;
     addEventListenerOnCases();
   }
 
@@ -84,15 +84,22 @@ function screenController() {
     const caseButtons = document.querySelectorAll(".case");
     caseButtons.forEach((button) => {
       button.addEventListener("click", () => {
+        // Check if a a player hasn't win yet
         if (!board.checkVictory()) {
+          // Update the board if nobody won the last turn
           if (updateBoard(button.id, currentPlayer.getToken())) {
-            togglePlayers();
+            // Change the currentPlayer if the board has been updated successfully and still nobody won
+            if (!board.checkVictory()) {
+              togglePlayers();
+            }
           }
         }
 
         if (board.checkVictory()) {
           turnElement.innerHTML = "";
-          victoryElement.innerHTML = `Game Over</br>${currentPlayer.getName()} wins!`;
+          victoryElement.innerHTML = `Game Over</br>${currentPlayer.getName()} 
+          wins!`;
+          restartDialog.showModal();
         } else {
           victoryElement.innerHTML = "";
         }
