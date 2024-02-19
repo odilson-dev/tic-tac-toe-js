@@ -25,7 +25,6 @@ export function GameBoard() {
       checkRows(gameBoard[1], gameBoard[5], gameBoard[9]),
       checkRows(gameBoard[7], gameBoard[5], gameBoard[3]),
     ];
-    console.log(array);
     return array.some((element) => {
       return element === true;
     });
