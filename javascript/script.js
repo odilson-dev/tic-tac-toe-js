@@ -17,6 +17,12 @@ function screenController() {
   const inputElements = favDialog.getElementsByTagName("input");
   let currentPlayer = player1;
   const confirmBtn = favDialog.querySelector("#confirmBtn");
+  const score = document.querySelector(".score");
+
+  function showScore() {
+    score.innerHTML = `${player1.getName()} : ${player1.getScore()} <br>
+    ${player2.getName()} : ${player2.getScore()}`;
+  }
 
   // "Show the dialog" button opens the <dialog> modally
   showButton.addEventListener("click", () => {
@@ -97,6 +103,8 @@ function screenController() {
 
         if (board.checkVictory()) {
           turnElement.innerHTML = "";
+          currentPlayer.increaseScore();
+          showScore();
           victoryElement.innerHTML = `Game Over</br>${currentPlayer.getName()} 
           wins!`;
           restartDialog.showModal();
@@ -120,6 +128,7 @@ function screenController() {
 
   createBoardOnScreen();
   addEventListenerOnCases();
+  showScore();
 }
 
 screenController();
