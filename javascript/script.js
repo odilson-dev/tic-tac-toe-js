@@ -10,7 +10,8 @@ function screenController() {
   const turnElement = document.querySelector(".turn");
   const content = document.querySelector(".content");
   const error = document.querySelector(".error");
-  const restart = document.querySelector(".btn-restart");
+  const btnPlayAgain = document.querySelector(".btn-play-again");
+  const btnRestart = document.querySelector(".btn-restart");
   const player1 = Player("Player X", "X");
   const player2 = Player("Player O", "O");
   const favDialog = document.getElementById("favDialog");
@@ -27,6 +28,10 @@ function screenController() {
   // "Show the dialog" button opens the <dialog> modally
   showButton.addEventListener("click", () => {
     favDialog.showModal();
+  });
+  // Reload the page to restart the game
+  btnRestart.addEventListener("click", () => {
+    location.reload();
   });
   favDialog.addEventListener("close", (e) => {
     let players_data = favDialog.returnValue
@@ -53,7 +58,7 @@ function screenController() {
     }
   }
 
-  function restartGame() {
+  function playGame() {
     board.resetBoard();
     boardDiv.innerHTML = "";
     victoryElement.innerHTML = "";
@@ -82,8 +87,8 @@ function screenController() {
     turnElement.innerHTML = `Now, it's ${currentPlayer.getName()}'s turn`;
   }
 
-  restart.addEventListener("click", () => {
-    restartGame();
+  btnPlayAgain.addEventListener("click", () => {
+    playGame();
   });
 
   function addEventListenerOnCases() {
