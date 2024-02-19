@@ -25,10 +25,6 @@ function screenController() {
     ${player2.getName()} : ${player2.getScore()}`;
   }
 
-  // "Show the dialog" button opens the <dialog> modally
-  showButton.addEventListener("click", () => {
-    favDialog.showModal();
-  });
   // Reload the page to restart the game
   btnRestart.addEventListener("click", () => {
     location.reload();
@@ -41,8 +37,11 @@ function screenController() {
         acc[key.trim()] = isNaN(value) ? value : parseInt(value);
         return acc;
       }, {});
-    player1.setName(players_data.player_1);
-    player2.setName(players_data.player_2);
+    if (!(players_data.player_1 === undefined)) {
+      player1.setName(players_data.player_1);
+      player2.setName(players_data.player_2);
+      showScore();
+    }
   });
 
   function createBoardOnScreen() {
@@ -112,6 +111,9 @@ function screenController() {
           showScore();
           victoryElement.innerHTML = `Game Over</br>${currentPlayer.getName()} 
           wins!`;
+          restartDialog.firstChild.replaceWith(score.cloneNode(true));
+
+          //restartDialog.removeChild(restartDialog.querySelector(".clone"));
           restartDialog.showModal();
         } else {
           victoryElement.innerHTML = "";
@@ -127,13 +129,13 @@ function screenController() {
     for (const element of inputElements) {
       data.push(`${element.name}: ${element.value}`);
     }
-
     favDialog.close(data.join(", "));
   });
 
   createBoardOnScreen();
   addEventListenerOnCases();
   showScore();
+  favDialog.showModal();
 }
 
 screenController();
