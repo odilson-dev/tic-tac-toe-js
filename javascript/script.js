@@ -45,10 +45,19 @@ function screenController() {
       error.textContent = "";
       const buttonToUpdate = document.getElementById(buttonID);
       buttonToUpdate.textContent = token;
+      return true;
     } else {
       error.textContent = "You can't play this square";
       content.insertBefore(error, victoryElement);
+      return false;
     }
+  }
+
+  function togglePlayers() {
+    currentPlayer === player1
+      ? (currentPlayer = player2)
+      : (currentPlayer = player1);
+    turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
   }
 
   restart.addEventListener("click", () => {
@@ -59,16 +68,17 @@ function screenController() {
     const caseButtons = document.querySelectorAll(".case");
     caseButtons.forEach((button) => {
       button.addEventListener("click", () => {
+        if (!board.checkVictory()) {
+          if (updateBoard(button.id, currentPlayer.token)) {
+            togglePlayers();
+          }
+        }
+
         if (board.checkVictory()) {
+          turnElement.innerHTML = "";
+          victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`;
         } else {
-          updateBoard(button.id, currentPlayer.token);
-          board.checkVictory()
-            ? (victoryElement.innerHTML = `Game Over</br>${currentPlayer.name} wins!`)
-            : (victoryElement.innerHTML = "");
-          currentPlayer === player1
-            ? (currentPlayer = player2)
-            : (currentPlayer = player1);
-          turnElement.innerHTML = `Now, it's ${currentPlayer.name}'s turn`;
+          victoryElement.innerHTML = "";
         }
       });
     });
