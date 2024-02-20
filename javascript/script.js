@@ -3,7 +3,6 @@ import { Player } from "./player.js";
 
 function screenController() {
   const boardDiv = document.querySelector(".board");
-  const showButton = document.getElementById("showDialog");
   const board = GameBoard();
   const restartDialog = document.getElementById("restart");
   const victoryElement = document.querySelector(".victory");
@@ -104,7 +103,6 @@ function screenController() {
             }
           }
         }
-
         if (board.checkVictory()) {
           turnElement.innerHTML = "";
           currentPlayer.increaseScore();
@@ -113,9 +111,11 @@ function screenController() {
           wins!`;
           restartDialog.firstChild.replaceWith(score.cloneNode(true));
 
-          //restartDialog.removeChild(restartDialog.querySelector(".clone"));
           restartDialog.showModal();
         } else {
+          if (board.isGameBoardFull()) {
+            restartDialog.showModal();
+          }
           victoryElement.innerHTML = "";
         }
       });

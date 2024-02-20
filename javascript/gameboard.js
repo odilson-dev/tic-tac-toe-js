@@ -4,11 +4,21 @@ export function GameBoard() {
   const checkRows = (elem1, elem2, elem3) => {
     return elem1 === elem2 ? elem2 === elem3 : false;
   };
+  // Check if the value is a number
   function isNumber(value) {
     return !isNaN(parseFloat(value)) && isFinite(value);
   }
   function resetBoard() {
     gameBoard = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9 };
+  }
+  // Check if the gameboard is full with either 'X' or 'O', meaning the game is over without a winner
+  function isGameBoardFull() {
+    for (const [key, value] of Object.entries(gameBoard)) {
+      if (isNumber(value)) {
+        return false;
+      }
+    }
+    return true;
   }
   // Return true when one row has three cases that have the same value
   const checkVictory = () => {
@@ -48,5 +58,12 @@ export function GameBoard() {
     }
   };
 
-  return { getGameBoard, setGameBoard, show_board, checkVictory, resetBoard };
+  return {
+    getGameBoard,
+    setGameBoard,
+    show_board,
+    checkVictory,
+    resetBoard,
+    isGameBoardFull,
+  };
 }
