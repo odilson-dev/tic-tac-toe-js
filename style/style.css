@@ -1,10 +1,43 @@
+@font-face {
+  font-family: "Delta";
+  src: url(/fonts/Delta.ttf);
+}
+
 .board {
   margin: auto;
-  width: 50%;
+  width: 30%;
+  height: 30vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 100px);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  background-color: black;
 }
+body {
+  background-color: #f3f4f8;
+  font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+  text-align: center;
+  font-size: 50px;
+  text-transform: uppercase;
+  font-family: Delta;
+  margin: 0;
+  letter-spacing: 15px;
+}
+.board > button {
+  font-size: 50px;
+  font-family: Delta;
+  border: none;
+  background-color: #f3f4f8;
+}
+.turn {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 /* ANIMATING DIALOG */
 
 /*   Open state of the dialog  */
