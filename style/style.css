@@ -2,7 +2,13 @@
   font-family: "Delta";
   src: url(/fonts/Delta.ttf);
 }
-
+@font-face {
+  font-family: Roboto;
+  src: url(/fonts/Roboto/Roboto-Black.ttf);
+}
+.content {
+  margin-bottom: 100px;
+}
 .board {
   margin: auto;
   width: 30%;
@@ -86,4 +92,33 @@ because the nesting selector cannot represent pseudo-elements. */
   dialog[open]::backdrop {
     background-color: rgb(0 0 0 / 0%);
   }
+}
+/* FOOTER */
+
+.footer {
+  border: 1px solid black;
+  text-align: center;
+  padding: 15px 0 15px 0;
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(26, 25, 25);
+  font-family: Roboto;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+i {
+  color: white;
+}
+a {
+  color: white;
+}
+.red-heart {
+  color: red; /* Change the color */
+  font-size: 30px; /* Change the size */
+}
+#odilsonjs {
+  color: rgb(3, 150, 199);
+
+  text-decoration: none;
 }
