@@ -5,14 +5,11 @@ function screenController() {
   const boardDiv = document.querySelector(".board");
   const board = GameBoard();
   const restartDialog = document.getElementById("restart");
-  const victoryElement = document.querySelector(".victory");
   const turnElement = document.querySelector(".turn");
-  const content = document.querySelector(".content");
-  const error = document.querySelector(".error");
   const btnPlayAgain = document.querySelector(".btn-play-again");
   const btnRestart = document.querySelector(".btn-restart");
-  const player1 = Player("Player X", "X");
-  const player2 = Player("Player O", "O");
+  const player1 = Player("Player", "X");
+  const player2 = Player("Player", "O");
   const favDialog = document.getElementById("favDialog");
   const inputElements = favDialog.getElementsByTagName("input");
   let currentPlayer = player1;
@@ -20,8 +17,8 @@ function screenController() {
   const score = document.querySelector(".score");
 
   function showScore() {
-    score.innerHTML = `${player1.getName()} : ${player1.getScore()} <br>
-    ${player2.getName()} : ${player2.getScore()}`;
+    score.innerHTML = `${player1.getName()} (${player1.getToken()}): ${player1.getScore()} <br>
+    ${player2.getName()} (${player2.getToken()}): ${player2.getScore()}`;
   }
 
   // Reload the page to restart the game
@@ -40,12 +37,21 @@ function screenController() {
       player1.setName(players_data.player_1);
       player2.setName(players_data.player_2);
       showScore();
+      turnElement.innerHTML = `${
+        currentPlayer.getName() == "Player"
+          ? currentPlayer.getToken()
+          : currentPlayer.getName()
+      }'s turn`;
     }
   });
 
   function createBoardOnScreen() {
     const theBoard = board.getGameBoard();
-    turnElement.innerHTML = `Now, it's ${currentPlayer.getName()}'s turn`;
+    turnElement.innerHTML = `${
+      currentPlayer.getName() == "Player"
+        ? currentPlayer.getToken()
+        : currentPlayer.getName()
+    }'s turn`;
     for (const key in theBoard) {
       const caseButton = document.createElement("button");
       const value = theBoard[key];
@@ -59,7 +65,6 @@ function screenController() {
   function playGame() {
     board.resetBoard();
     boardDiv.innerHTML = "";
-    victoryElement.innerHTML = "";
     restartDialog.close();
     createBoardOnScreen();
     addEventListenerOnCases();
@@ -67,13 +72,11 @@ function screenController() {
 
   function updateBoard(buttonID, token) {
     if (board.setGameBoard(buttonID, token)) {
-      error.textContent = "";
       const buttonToUpdate = document.getElementById(buttonID);
       buttonToUpdate.textContent = token;
       return true;
     } else {
-      error.textContent = "You can't play this square";
-      content.insertBefore(error, victoryElement);
+      turnElement.innerHTML = "You can't play this square";
       return false;
     }
   }
@@ -82,7 +85,11 @@ function screenController() {
     currentPlayer === player1
       ? (currentPlayer = player2)
       : (currentPlayer = player1);
-    turnElement.innerHTML = `Now, it's ${currentPlayer.getName()}'s turn`;
+    turnElement.innerHTML = `${
+      currentPlayer.getName() == "Player"
+        ? currentPlayer.getToken()
+        : currentPlayer.getName()
+    }'s turn`;
   }
 
   btnPlayAgain.addEventListener("click", () => {
@@ -104,19 +111,20 @@ function screenController() {
           }
         }
         if (board.checkVictory()) {
-          turnElement.innerHTML = "";
           currentPlayer.increaseScore();
           showScore();
-          victoryElement.innerHTML = `Game Over</br>${currentPlayer.getName()} 
+          turnElement.innerHTML = `Game Over!${
+            currentPlayer.getName() == "Player"
+              ? currentPlayer.getToken()
+              : currentPlayer.getName()
+          } 
           wins!`;
           restartDialog.firstChild.replaceWith(score.cloneNode(true));
-
-          restartDialog.showModal();
+          setTimeout(() => restartDialog.showModal(), 1000);
         } else {
           if (board.isGameBoardFull()) {
-            restartDialog.showModal();
+            setTimeout(() => restartDialog.showModal(), 1000);
           }
-          victoryElement.innerHTML = "";
         }
       });
     });
