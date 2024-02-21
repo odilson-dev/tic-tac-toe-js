@@ -46,6 +46,38 @@ h1 {
 
 /* ANIMATING DIALOG */
 
+/* Styling button */
+.btn-style {
+  color: white;
+  background-color: rgb(26, 25, 25);
+  border: 1px solid rgb(26, 25, 25);
+  padding: 5px 10px 5px 10px;
+  font-weight: bold;
+  margin: auto 3px auto 3px;
+}
+.btn-style:hover {
+  background-color: white;
+  color: rgb(26, 25, 25);
+  transition: 500ms;
+}
+.buttons {
+  margin-top: 15px;
+  text-align: center;
+}
+label {
+  font-size: 15px;
+  font-weight: bold;
+}
+input {
+  border: none;
+  border-bottom: 2px solid rgb(26, 25, 25);
+}
+input:focus {
+  outline: none;
+}
+.input {
+  margin-bottom: 10px;
+}
 /*   Open state of the dialog  */
 dialog[open] {
   opacity: 1;

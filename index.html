@@ -19,30 +19,40 @@
       <div class="board"></div>
       <dialog id="favDialog">
         <form>
-          <label for="player_1">Player 1:</label>
-          <input
-            type="text"
-            name="player_1"
-            id="player_1"
-            placeholder="John Doe"
-          /><br />
-          <label for="player_2">Player 2:</label>
-          <input
-            type="text"
-            name="player_2"
-            id="player_2"
-            placeholder="Sophia"
-          /><br />
+          <div class="input">
+            <label for="player_1">Player 1:</label>
+            <input
+              type="text"
+              name="player_1"
+              id="player_1"
+              placeholder="John Doe"
+            />
+          </div>
+          <div class="input">
+            <label for="player_2">Player 2:</label>
+            <input
+              type="text"
+              name="player_2"
+              id="player_2"
+              placeholder="Sophia"
+            /><br />
+          </div>
 
-          <div>
-            <button value="cancel" formmethod="dialog">Cancel</button>
-            <button id="confirmBtn" value="default">Confirm</button>
+          <div class="buttons">
+            <button value="cancel" class="btn-style" formmethod="dialog">
+              Cancel
+            </button>
+            <button id="confirmBtn" class="btn-style" value="default">
+              Confirm
+            </button>
           </div>
         </form>
       </dialog>
       <dialog id="restart">
-        <button class="btn-play-again">Play again</button>
-        <button class="btn-restart">Restart</button>
+        <div class="buttons">
+          <button class="btn-play-again btn-style">Play again</button>
+          <button class="btn-restart btn-style">Restart</button>
+        </div>
       </dialog>
     </div>
     <div class="footer">
