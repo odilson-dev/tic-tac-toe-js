@@ -23,7 +23,7 @@ function screenController() {
 
   // Reload the page to restart the game
   btnRestart.addEventListener("click", () => {
-    location.reload();
+    window.location.href = window.location.href;
   });
   favDialog.addEventListener("close", (e) => {
     let players_data = favDialog.returnValue
@@ -120,10 +120,10 @@ function screenController() {
           } 
           wins!`;
           restartDialog.firstChild.replaceWith(score.cloneNode(true));
-          setTimeout(() => restartDialog.showModal(), 1000);
+          restartDialog.showModal();
         } else {
           if (board.isGameBoardFull()) {
-            setTimeout(() => restartDialog.showModal(), 1000);
+            restartDialog.showModal();
           }
         }
       });
