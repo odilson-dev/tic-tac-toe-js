@@ -43,4 +43,4 @@ This project was completed as part of the [Odin Project](https://www.theodinproj
 
 [Lesson link](https://www.theodinproject.com/lessons/javascript-tic-tac-toe)
 
-[Live Preview](https://odilsoncode.github.io/tic-tac-toe-js/)
+[Live Preview](https://odilson-dev.github.io/tic-tac-toe-js/)
