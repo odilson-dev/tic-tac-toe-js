@@ -1,4 +1,5 @@
 # Tic-Tac-Toe Game
+![Screenshot](./tic-tac-toe.png)
 
 This repository contains a completed implementation of the classic Tic-Tac-Toe game using HTML, CSS, and JavaScript. The game logic is organized using factory functions and follows a modular structure.
 
